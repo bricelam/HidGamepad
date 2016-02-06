@@ -81,28 +81,7 @@ namespace Windows.Gaming.Input
             => _currentReading;
 
         void HandleInputReportRecieved(HidDevice sender, HidInputReportReceivedEventArgs args)
-        {
-            var buttons = GamepadButtons.None;
-
-            if (args.Report.GetBooleanControl(9, 1).IsActive)
-                buttons |= GamepadButtons.A;
-            if (args.Report.GetBooleanControl(9, 2).IsActive)
-                buttons |= GamepadButtons.B;
-            if (args.Report.GetBooleanControl(9, 3).IsActive)
-                buttons |= GamepadButtons.X;
-            if (args.Report.GetBooleanControl(9, 4).IsActive)
-                buttons |= GamepadButtons.Y;
-
-            var leftThumbstickX = args.Report.GetNumericControl(0x01, 0x30).Value;
-            var leftThumbstickY = args.Report.GetNumericControl(0x01, 0x31).Value;
-
-            _currentReading = new GamepadReading
-            {
-                Buttons = buttons,
-                LeftThumbstickX = (leftThumbstickX - 32768) / 32768.0,
-                LeftThumbstickY = (leftThumbstickY - 32768) / -32768.0
-            };
-        }
+            => _currentReading = args.Report.ToGamepadReading();
 
         public void Dispose()
         {

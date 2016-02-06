@@ -107,6 +107,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\HidInputReportExtensions.cs" />
     <Compile Include="HidGamepad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
